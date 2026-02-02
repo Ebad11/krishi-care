@@ -160,4 +160,32 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .bg-krishi-green-light {
+    background-color: hsl(var(--krishi-green-light));
+  }
+
+  .bg-krishi-warning {
+    background-color: hsl(var(--krishi-warning));
+  }
+
+  .text-krishi-warning {
+    color: hsl(var(--krishi-warning));
+  }
+
+  .text-krishi-sky {
+    color: hsl(var(--krishi-sky));
+  }
+
+  .text-krishi-sun {
+    color: hsl(var(--krishi-sun));
+  }
+
+  .bg-krishi-sky {
+    background-color: hsl(var(--krishi-sky));
+  }
+
+  .bg-krishi-sun {
+    background-color: hsl(var(--krishi-sun));
+  }
 }

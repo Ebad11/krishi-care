@@ -2,6 +2,8 @@ import { Search, Filter, AlertTriangle, CheckCircle2, ChevronRight, Calendar } f
 import { Link } from "react-router-dom";
 import MobileLayout from "@/components/layout/MobileLayout";
 import { Input } from "@/components/ui/input";
+import TranslateButton from "@/components/common/TranslateButton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const scanHistory = [
   {
@@ -57,13 +59,20 @@ const scanHistory = [
 ];
 
 const History = () => {
+  const { t } = useLanguage();
+  
   return (
     <MobileLayout>
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="p-5 pt-6 border-b border-border">
-          <h1 className="text-xl font-bold text-foreground">Scan History</h1>
-          <p className="text-sm text-muted-foreground mt-1">Your previous crop scans</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold text-foreground">{t('recentScans')}</h1>
+              <p className="text-sm text-muted-foreground mt-1">Your previous crop scans</p>
+            </div>
+            <TranslateButton />
+          </div>
           
           {/* Search Bar */}
           <div className="flex items-center gap-3 mt-4">
