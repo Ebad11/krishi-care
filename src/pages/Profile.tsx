@@ -9,25 +9,40 @@ import {
   LogOut,
   Leaf,
   Award,
-  TrendingUp
+  TrendingUp,
+  Languages
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import MobileLayout from "@/components/layout/MobileLayout";
-
-const menuItems = [
-  { icon: Bell, label: "Notifications", sublabel: "Manage alerts" },
-  { icon: Leaf, label: "My Crops", sublabel: "Manage your crops" },
-  { icon: TrendingUp, label: "Analytics", sublabel: "View statistics" },
-  { icon: HelpCircle, label: "Help & Support", sublabel: "Get assistance" },
-  { icon: Shield, label: "Privacy & Security", sublabel: "Account settings" },
-];
+import TranslateButton from "@/components/common/TranslateButton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const { t } = useLanguage();
+  
+  const menuItems = [
+    { icon: Bell, label: "Notifications", sublabel: "Manage alerts" },
+    { icon: Leaf, label: "My Crops", sublabel: "Manage your crops" },
+    { icon: TrendingUp, label: "Analytics", sublabel: "View statistics" },
+    { icon: Languages, label: t('selectLanguage'), sublabel: "Change app language", isLanguage: true },
+    { icon: HelpCircle, label: "Help & Support", sublabel: "Get assistance" },
+    { icon: Shield, label: "Privacy & Security", sublabel: "Account settings" },
+  ];
+
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <MobileLayout>
       <div className="min-h-screen bg-background">
         {/* Header */}
         <div className="gradient-primary pt-8 pb-20 px-5">
-          <h1 className="text-xl font-bold text-primary-foreground">My Profile</h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-primary-foreground">{t('profile')}</h1>
+            <TranslateButton className="bg-primary-foreground/20 text-primary-foreground" />
+          </div>
         </div>
 
         {/* Profile Card */}
@@ -88,6 +103,26 @@ const Profile = () => {
           <div className="bg-card rounded-2xl shadow-krishi-sm overflow-hidden">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
+              
+              if (item.isLanguage) {
+                return (
+                  <div
+                    key={item.label}
+                    className="w-full flex items-center gap-4 p-4 hover:bg-secondary transition-colors animate-slide-up"
+                    style={{ animationDelay: `${(index + 3) * 50}ms` }}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <p className="font-medium text-foreground">{item.label}</p>
+                      <p className="text-xs text-muted-foreground">{item.sublabel}</p>
+                    </div>
+                    <TranslateButton variant="full" />
+                  </div>
+                );
+              }
+              
               return (
                 <button
                   key={item.label}
@@ -108,7 +143,10 @@ const Profile = () => {
           </div>
 
           {/* Logout Button */}
-          <button className="w-full flex items-center justify-center gap-2 mt-4 py-4 text-destructive font-medium hover:bg-destructive/5 rounded-2xl transition-colors">
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2 mt-4 py-4 text-destructive font-medium hover:bg-destructive/5 rounded-2xl transition-colors"
+          >
             <LogOut className="w-5 h-5" />
             Log Out
           </button>

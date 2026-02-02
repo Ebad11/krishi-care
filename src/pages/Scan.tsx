@@ -3,9 +3,13 @@ import { Camera, Upload, X, Zap, Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import MobileLayout from "@/components/layout/MobileLayout";
 import { Button } from "@/components/ui/button";
+import TranslateButton from "@/components/common/TranslateButton";
+import ReadAloudButton from "@/components/common/ReadAloudButton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Scan = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
 
@@ -33,15 +37,21 @@ const Scan = () => {
     setIsScanning(false);
   };
 
+  const tipsText = "Tips for better results: Take clear, well-lit photos of affected leaves. Include both healthy and diseased parts if visible. Avoid blurry or shadowy images.";
+
   return (
     <MobileLayout>
       <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="flex items-center justify-between p-5 pt-6 border-b border-border">
-          <h1 className="text-xl font-bold text-foreground">Scan Crop</h1>
-          <button className="p-2 bg-secondary rounded-xl hover:bg-muted transition-colors">
-            <Info className="w-5 h-5 text-muted-foreground" />
-          </button>
+          <h1 className="text-xl font-bold text-foreground">{t('scanYourCrop')}</h1>
+          <div className="flex items-center gap-2">
+            <TranslateButton />
+            <ReadAloudButton text={tipsText} size="md" />
+            <button className="p-2 bg-secondary rounded-xl hover:bg-muted transition-colors">
+              <Info className="w-5 h-5 text-muted-foreground" />
+            </button>
+          </div>
         </header>
 
         <div className="p-5 space-y-6">
@@ -92,7 +102,10 @@ const Scan = () => {
 
           {/* Tips */}
           <div className="bg-secondary rounded-2xl p-4">
-            <h3 className="font-semibold text-foreground mb-3">📸 Tips for better results</h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-foreground">📸 Tips for better results</h3>
+              <ReadAloudButton text={tipsText} size="sm" />
+            </div>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <span className="text-primary">•</span>
@@ -141,7 +154,7 @@ const Scan = () => {
                   />
                   <div className="w-full h-14 text-lg font-semibold gradient-primary text-primary-foreground rounded-2xl shadow-krishi-primary flex items-center justify-center gap-2 cursor-pointer hover:opacity-90 transition-opacity">
                     <Camera className="w-5 h-5" />
-                    Take Photo
+                    {t('takePhoto')}
                   </div>
                 </label>
                 
@@ -154,7 +167,7 @@ const Scan = () => {
                   />
                   <div className="w-full h-14 text-lg font-semibold bg-card border-2 border-primary text-primary rounded-2xl flex items-center justify-center gap-2 cursor-pointer hover:bg-krishi-green-light transition-colors">
                     <Upload className="w-5 h-5" />
-                    Upload from Gallery
+                    {t('uploadImage')}
                   </div>
                 </label>
               </>
