@@ -13,6 +13,7 @@ import Remedies from "./pages/Remedies";
 import History from "./pages/History";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import AuthCallback from "./pages/AuthCallback"; // ADD THIS IMPORT
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Splash />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/auth/callback" element={<AuthCallback />} /> {/* ADD THIS ROUTE */}
             <Route path="/home" element={<Home />} />
             <Route path="/scan" element={<Scan />} />
             <Route path="/result/:id" element={<Result />} />

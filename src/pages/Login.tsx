@@ -11,7 +11,8 @@ const Login = () => {
   const handleGoogleLogin = () => {
     // In a real app, this would trigger Google OAuth
     // For now, navigate to home
-    navigate("/home");
+    // navigate("/home");
+    window.location.href = "http://localhost:5000/auth/google";
   };
 
   const handleQuickUse = () => {
